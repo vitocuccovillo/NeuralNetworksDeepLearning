@@ -39,7 +39,6 @@ def relu(Z):
     cache = Z
     return A, cache
 
-
 def relu_backward(dA, cache):
     """
     Implement the backward propagation for a single RELU unit.
@@ -83,7 +82,6 @@ def sigmoid_backward(dA, cache):
 
     return dZ
 
-
 def load_data():
 
     train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
@@ -100,7 +98,6 @@ def load_data():
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
 
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
-
 
 def initialize_parameters(n_x, n_h, n_y):
     """
@@ -135,7 +132,6 @@ def initialize_parameters(n_x, n_h, n_y):
                   "b2": b2}
 
     return parameters
-
 
 def initialize_parameters_deep(layer_dims):
     """
