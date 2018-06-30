@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import scipy
 from PIL import Image
 from scipy import ndimage
-
+import os
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -631,6 +631,7 @@ def L2(yhat, y):
 
     return loss
 
+
 def softmax(x):
     """Calculates the softmax for each row of the input x.
 
@@ -657,6 +658,7 @@ def softmax(x):
 
     return s
 
+
 def sigmoid_derivative(x):
     """
     Compute the gradient (also called the slope or derivative) of the sigmoid function with respect to its input x.
@@ -675,6 +677,7 @@ def sigmoid_derivative(x):
     ### END CODE HERE ###
 
     return ds
+
 
 def initialize_with_zeros(dim):
     """
@@ -697,6 +700,7 @@ def initialize_with_zeros(dim):
     assert (isinstance(b, float) or isinstance(b, int))
 
     return w, b
+
 
 def propagate(w, b, X, Y):
     """
@@ -740,6 +744,7 @@ def propagate(w, b, X, Y):
              "db": db}
 
     return grads, cost
+
 
 def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost=False):
     """
@@ -860,6 +865,7 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost=False):
 
     return params, grads, costs
 
+
 def predict(w, b, X):
     '''
     Predict whether the label is 0 or 1 using learned logistic regression parameters (w, b)
@@ -891,6 +897,7 @@ def predict(w, b, X):
     assert (Y_prediction.shape == (1, m))
 
     return Y_prediction
+
 
 def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0.5, print_cost=False):
     """
@@ -940,12 +947,15 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
 
     return d
 
+
 def load_dataset():
-    train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
+    script_dir = os.path.dirname(__file__)
+    ds = script_dir.replace("NN", "")
+    train_dataset = h5py.File(ds + '/datasets/train_catvnoncat.h5', "r")
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
 
-    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r")
+    test_dataset = h5py.File(ds + '/datasets/test_catvnoncat.h5', "r")
     test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # your test set features
     test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # your test set labels
 
@@ -1049,10 +1059,13 @@ if __name__ == "__main__":
 
     print("USER PICTURE LOADING....")
 
-    my_image = "t.jpg"   # change this to the name of your image file
-    fname = "images/" + my_image
+    script_dir = os.path.dirname(__file__)
+    ds = script_dir.replace("NN", "")
+
+    my_image = "lucky2.jpg"   # change this to the name of your image file
+    fname = ds + "images/" + my_image
     image = np.array(ndimage.imread(fname, flatten=False))
-    my_image = scipy.misc.imresize(image, size=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
+    my_image = scipy.misc.imresize(image, size=(num_px, num_px)).reshape((1, num_px * num_px * 3)).T
     my_predicted_image = predict(d["w"], d["b"], my_image)
 
     plt.imshow(image)

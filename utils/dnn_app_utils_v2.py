@@ -20,6 +20,7 @@ def sigmoid(Z):
 
     return A, cache
 
+
 def relu(Z):
     """
     Implement the RELU function.
@@ -38,6 +39,7 @@ def relu(Z):
 
     cache = Z
     return A, cache
+
 
 def relu_backward(dA, cache):
     """
@@ -61,6 +63,7 @@ def relu_backward(dA, cache):
 
     return dZ
 
+
 def sigmoid_backward(dA, cache):
     """
     Implement the backward propagation for a single SIGMOID unit.
@@ -82,6 +85,7 @@ def sigmoid_backward(dA, cache):
 
     return dZ
 
+
 def load_data():
 
     train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
@@ -98,6 +102,7 @@ def load_data():
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
 
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
+
 
 def initialize_parameters(n_x, n_h, n_y):
     """
@@ -133,6 +138,7 @@ def initialize_parameters(n_x, n_h, n_y):
 
     return parameters
 
+
 def initialize_parameters_deep(layer_dims):
     """
     Arguments:
@@ -158,6 +164,7 @@ def initialize_parameters_deep(layer_dims):
 
     return parameters
 
+
 def linear_forward(A, W, b):
     """
     Implement the linear part of a layer's forward propagation.
@@ -178,6 +185,7 @@ def linear_forward(A, W, b):
     cache = (A, W, b)
 
     return Z, cache
+
 
 def linear_activation_forward(A_prev, W, b, activation):
     """
@@ -209,6 +217,7 @@ def linear_activation_forward(A_prev, W, b, activation):
     cache = (linear_cache, activation_cache)
 
     return A, cache
+
 
 def L_model_forward(X, parameters):
     """
@@ -243,6 +252,7 @@ def L_model_forward(X, parameters):
 
     return AL, caches
 
+
 def compute_cost(AL, Y):
     """
     Implement the cost function defined by equation (7).
@@ -264,6 +274,7 @@ def compute_cost(AL, Y):
     assert(cost.shape == ())
 
     return cost
+
 
 def linear_backward(dZ, cache):
     """
@@ -291,6 +302,7 @@ def linear_backward(dZ, cache):
 
     return dA_prev, dW, db
 
+
 def linear_activation_backward(dA, cache, activation):
     """
     Implement the backward propagation for the LINEAR->ACTIVATION layer.
@@ -316,6 +328,7 @@ def linear_activation_backward(dA, cache, activation):
         dA_prev, dW, db = linear_backward(dZ, linear_cache)
 
     return dA_prev, dW, db
+
 
 def L_model_backward(AL, Y, caches):
     """
@@ -356,6 +369,7 @@ def L_model_backward(AL, Y, caches):
 
     return grads
 
+
 def update_parameters(parameters, grads, learning_rate):
     """
     Update parameters using gradient descent
@@ -378,6 +392,7 @@ def update_parameters(parameters, grads, learning_rate):
         parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * grads["db" + str(l+1)]
 
     return parameters
+
 
 def predict(X, y, parameters):
     """
@@ -412,6 +427,7 @@ def predict(X, y, parameters):
     print("Accuracy: "  + str(np.sum((p == y)/m)))
 
     return p
+
 
 def print_mislabeled_images(classes, X, y, p):
     """
